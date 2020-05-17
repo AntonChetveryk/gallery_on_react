@@ -9,7 +9,7 @@ import Users from "./pages/Users";
 export default class App extends React.Component {
   render() {
     return (
-      <Router>
+      <Router basename="/gallery_on_react">
         <Switch>
           <Layout>
             <Route exact path="/" component={Users} />
