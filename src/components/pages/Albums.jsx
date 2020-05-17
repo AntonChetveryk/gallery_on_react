@@ -19,33 +19,40 @@ const AlbumsContainer = styled.div`
 export default class Albums extends React.Component {
   state = {
     albums: [],
+    isLoading: false,
   };
 
   componentDidMount() {
     const { userId } = this.props.match.params;
 
+    this.setState({ isLoading: true });
+
     fetch("https://jsonplaceholder.typicode.com/albums")
       .then((res) => res.json())
       .then((res) => res.filter((item) => item.userId === +userId))
-      .then((res) => this.setState({ albums: res }));
+      .then((res) => this.setState({ albums: res, isLoading: false }));
   }
   render() {
-    const { albums } = this.state;
+    const { albums, isLoading } = this.state;
     const { userId } = this.props.match.params;
 
     return (
       <div>
         <h1>Albums</h1>
         <Link to={`/`}>Назад</Link>
-        <AlbumsContainer>
-          {albums.map((album) => (
-            <Wrapper key={album.id}>
-              <Link to={`/albums/${userId}/photos/${album.id}`}>
-                {album.title}
-              </Link>
-            </Wrapper>
-          ))}
-        </AlbumsContainer>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <AlbumsContainer>
+            {albums.map((album) => (
+              <Wrapper key={album.id}>
+                <Link to={`/albums/${userId}/photos/${album.id}`}>
+                  {album.title}
+                </Link>
+              </Wrapper>
+            ))}
+          </AlbumsContainer>
+        )}
       </div>
     );
   }

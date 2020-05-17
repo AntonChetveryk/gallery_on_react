@@ -11,30 +11,37 @@ const PhotosContainer = styled.div`
 export default class Photos extends React.Component {
   state = {
     photos: [],
+    isLoading: false,
   };
 
   componentDidMount() {
     const { albumId } = this.props.match.params;
 
+    this.setState({ isLoading: true });
+
     fetch("https://jsonplaceholder.typicode.com/photos")
       .then((res) => res.json())
       .then((res) => res.filter((item) => item.albumId === +albumId))
-      .then((res) => this.setState({ photos: res }));
+      .then((res) => this.setState({ photos: res, isLoading: false }));
   }
 
   render() {
-    const { photos } = this.state;
+    const { photos, isLoading } = this.state;
     const { userId } = this.props.match.params;
 
     return (
       <div>
         <h1>Photos</h1>
         <Link to={`/albums/${userId}`}>Назад</Link>
-        <PhotosContainer>
-          {photos.map((photo) => (
-            <Photo key={photo.id} photo={photo} />
-          ))}
-        </PhotosContainer>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <PhotosContainer>
+            {photos.map((photo) => (
+              <Photo key={photo.id} photo={photo} />
+            ))}
+          </PhotosContainer>
+        )}
       </div>
     );
   }

@@ -37,10 +37,10 @@ export default class Photos extends React.Component {
           <img src={photo.thumbnailUrl} alt="img" id={"Popover-" + photo.id} />
 
           <Popover
-            placement="bottom"
             isOpen={popoverOpen}
             target={"Popover-" + photo.id}
             toggle={this.toggle}
+            placement="bottom"
           >
             <PopoverBody>
               <img src={photo.url} alt="img" onClick={this.toggle} />
