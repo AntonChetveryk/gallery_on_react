@@ -18,27 +18,34 @@ const UsersContainer = styled.div`
 export default class Users extends React.Component {
   state = {
     users: [],
+    isLoading: false,
   };
 
   componentDidMount() {
+    this.setState({ isLoading: true });
+
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
-      .then((res) => this.setState({ users: res }));
+      .then((res) => this.setState({ users: res, isLoading: false }));
   }
 
   render() {
-    const { users } = this.state;
+    const { users, isLoading } = this.state;
 
     return (
       <div>
         <h1>Users</h1>
-        <UsersContainer>
-          {users.map((user) => (
-            <Wrapper key={user.id}>
-              <Link to={`/albums/${user.id}`}>{user.name}</Link>
-            </Wrapper>
-          ))}
-        </UsersContainer>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <UsersContainer>
+            {users.map((user) => (
+              <Wrapper key={user.id}>
+                <Link to={`/albums/${user.id}`}>{user.name}</Link>
+              </Wrapper>
+            ))}
+          </UsersContainer>
+        )}
       </div>
     );
   }
