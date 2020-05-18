@@ -35,6 +35,7 @@ export default class Users extends React.Component {
     return (
       <div>
         <h1>Users</h1>
+
         {isLoading ? (
           <p>Loading...</p>
         ) : (

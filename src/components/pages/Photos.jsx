@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
 import Photo from "./Photo";
+import { Modal } from "@material-ui/core";
+import Slider from "../Slider";
 
 const PhotosContainer = styled.div`
   display: flex;
@@ -12,6 +13,13 @@ export default class Photos extends React.Component {
   state = {
     photos: [],
     isLoading: false,
+    isOpen: false,
+  };
+
+  setIsOpen = () => {
+    this.setState((state) => {
+      return { isOpen: !state.isOpen };
+    });
   };
 
   componentDidMount() {
@@ -26,19 +34,31 @@ export default class Photos extends React.Component {
   }
 
   render() {
-    const { photos, isLoading } = this.state;
+    const { photos, isLoading, isOpen } = this.state;
     const { userId } = this.props.match.params;
 
     return (
       <div>
         <h1>Photos</h1>
+        <Modal
+          open={isOpen}
+          onClose={this.setIsOpen}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div className="slider-position">
+            <Slider photos={photos} />
+          </div>
+        </Modal>
+
         <Link to={`/albums/${userId}`}>Назад</Link>
+
         {isLoading ? (
           <p>Loading...</p>
         ) : (
           <PhotosContainer>
             {photos.map((photo) => (
-              <Photo key={photo.id} photo={photo} />
+              <Photo key={photo.id} photo={photo} setIsOpen={this.setIsOpen} />
             ))}
           </PhotosContainer>
         )}

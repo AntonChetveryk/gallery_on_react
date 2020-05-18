@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 import Layout from "./Layout";
 import Photos from "./pages/Photos";
 import Albums from "./pages/Albums";
