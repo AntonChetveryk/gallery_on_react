@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,iBACE,iBAAkB,CAClB,OAAQ,CACR,QAAS,CACT,8BACF","file":"main.33ce6fd5.chunk.css","sourcesContent":[".slider-position {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n}\r\n"]}
