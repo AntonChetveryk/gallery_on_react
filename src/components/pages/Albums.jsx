@@ -1,15 +1,8 @@
 import React from "react";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import styled from "styled-components";
-
-const Wrapper = styled.div`
-  border: 1px solid black;
-  margin: 20px;
-  padding: 10px;
-  width: 200px;
-  font-size: 12px;
-`;
+import Album from "./Album";
 
 const AlbumsContainer = styled.div`
   display: flex;
@@ -45,11 +38,7 @@ export default class Albums extends React.Component {
         ) : (
           <AlbumsContainer>
             {albums.map((album) => (
-              <Wrapper key={album.id}>
-                <Link to={`/albums/${userId}/photos/${album.id}`}>
-                  {album.title}
-                </Link>
-              </Wrapper>
+              <Album album={album} userId={userId} key={album.id} />
             ))}
           </AlbumsContainer>
         )}

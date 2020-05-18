@@ -9,7 +9,7 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 400,
+    maxWidth: 500,
     flexGrow: 1,
   },
   header: {
@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   img: {
-    height: 255,
-    maxWidth: 400,
     overflow: "hidden",
     display: "block",
     width: "100%",
@@ -31,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Slider(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(props.startIndex);
   const maxSteps = props.photos.length;
   const { photos } = props;
 

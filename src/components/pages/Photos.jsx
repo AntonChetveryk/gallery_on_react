@@ -14,12 +14,15 @@ export default class Photos extends React.Component {
     photos: [],
     isLoading: false,
     isOpen: false,
+    startIndex: 0,
   };
 
-  setIsOpen = (e) => {
-    console.log(e.target);
+  setIsOpen = (event) => {
+    const { target } = event;
+    const { photos } = this.state;
+    const idexOfElement = photos.findIndex((photo) => photo.id === +target.id);
     this.setState((state) => {
-      return { isOpen: !state.isOpen };
+      return { isOpen: !state.isOpen, startIndex: idexOfElement };
     });
   };
 
@@ -35,7 +38,7 @@ export default class Photos extends React.Component {
   }
 
   render() {
-    const { photos, isLoading, isOpen } = this.state;
+    const { photos, isLoading, isOpen, startIndex } = this.state;
     const { userId } = this.props.match.params;
 
     return (
@@ -48,7 +51,7 @@ export default class Photos extends React.Component {
           aria-describedby="simple-modal-description"
         >
           <div className="slider-position">
-            <Slider photos={photos} />
+            <Slider photos={photos} startIndex={startIndex} />
           </div>
         </Modal>
 

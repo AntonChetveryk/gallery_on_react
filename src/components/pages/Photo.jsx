@@ -20,9 +20,14 @@ export default class Photos extends React.Component {
 
     return (
       <>
-        <Wrapper onClick={setIsOpen}>
+        <Wrapper>
           <h3>{photo.title}</h3>
-          <img src={photo.thumbnailUrl} alt="img" id={photo.id} />
+          <img
+            src={photo.thumbnailUrl}
+            alt="img"
+            id={photo.id}
+            onClick={setIsOpen}
+          />
         </Wrapper>
       </>
     );
