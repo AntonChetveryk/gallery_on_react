@@ -22,7 +22,7 @@ export default class Photos extends React.Component {
       <>
         <Wrapper onClick={setIsOpen}>
           <h3>{photo.title}</h3>
-          <img src={photo.thumbnailUrl} alt="img" id={"Popover-" + photo.id} />
+          <img src={photo.thumbnailUrl} alt="img" id={photo.id} />
         </Wrapper>
       </>
     );

@@ -16,7 +16,8 @@ export default class Photos extends React.Component {
     isOpen: false,
   };
 
-  setIsOpen = () => {
+  setIsOpen = (e) => {
+    console.log(e.target);
     this.setState((state) => {
       return { isOpen: !state.isOpen };
     });
