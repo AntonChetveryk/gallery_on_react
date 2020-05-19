@@ -24,7 +24,7 @@ export default class Users extends React.Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    getData("https://jsonplaceholder.typicode.com/users")
+    getData("https://jsonplaceholder.typicode.com/users?mode=no-cors")
       .then((res) => {
         this.setState({ users: res, isLoading: false });
       })
