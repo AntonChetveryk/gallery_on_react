@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { getData } from "../../getDataFunc";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -23,10 +24,11 @@ export default class Users extends React.Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((res) => this.setState({ users: res, isLoading: false }));
+    getData("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        this.setState({ users: res, isLoading: false });
+      })
+      .catch((error) => alert(error));
   }
 
   render() {

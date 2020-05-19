@@ -19,8 +19,12 @@ export default class Album extends React.Component {
     const { album } = this.props;
     fetch("https://jsonplaceholder.typicode.com/photos")
       .then((res) => res.json())
-      .then((res) => res.filter((photo) => photo.albumId === album.id))
-      .then((res) => this.setState({ numberOfPhotos: res.length }));
+      .then((res) => {
+        return res.filter((photo) => photo.albumId === album.id);
+      })
+      .then((res) => {
+        this.setState({ numberOfPhotos: res.length });
+      });
   }
 
   render() {

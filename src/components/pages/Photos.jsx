@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Photo from "./Photo";
 import { Modal } from "@material-ui/core";
 import Slider from "../Slider";
+import { getData } from "../../getDataFunc";
 
 const PhotosContainer = styled.div`
   display: flex;
@@ -31,10 +32,10 @@ export default class Photos extends React.Component {
 
     this.setState({ isLoading: true });
 
-    fetch("https://jsonplaceholder.typicode.com/photos")
-      .then((res) => res.json())
+    getData("https://jsonplaceholder.typicode.com/photos")
       .then((res) => res.filter((item) => item.albumId === +albumId))
-      .then((res) => this.setState({ photos: res, isLoading: false }));
+      .then((res) => this.setState({ photos: res, isLoading: false }))
+      .catch((error) => alert(error));
   }
 
   render() {
