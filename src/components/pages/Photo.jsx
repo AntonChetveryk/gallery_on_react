@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   }
 `;
 
-export default class Photos extends React.Component {
+export default class Photo extends React.Component {
   render() {
     const { photo, setIsOpen } = this.props;
 
