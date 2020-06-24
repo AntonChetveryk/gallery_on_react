@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 export default class Photo extends React.Component {
   render() {
-    const { photo, setIsOpen } = this.props;
+    const { photo, onClickOpeningGallery } = this.props;
 
     return (
       <>
@@ -26,7 +26,7 @@ export default class Photo extends React.Component {
             src={photo.thumbnailUrl}
             alt="img"
             id={photo.id}
-            onClick={setIsOpen}
+            onClick={onClickOpeningGallery}
           />
         </Wrapper>
       </>

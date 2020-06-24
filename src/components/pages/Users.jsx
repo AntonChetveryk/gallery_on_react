@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { getData } from "../../getDataFunc";
+import { fetchData } from "../../fetchData";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -24,7 +24,7 @@ export default class Users extends React.Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    getData("https://jsonplaceholder.typicode.com/users?mode=no-cors")
+    fetchData("https://jsonplaceholder.typicode.com/users?mode=no-cors")
       .then((res) => {
         this.setState({ users: res, isLoading: false });
       })

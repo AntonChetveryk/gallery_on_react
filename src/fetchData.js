@@ -1,4 +1,4 @@
-export const getData = (url) => {
+export const fetchData = (url) => {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then((res) => {

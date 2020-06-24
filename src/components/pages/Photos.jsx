@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Photo from "./Photo";
 import { Modal } from "@material-ui/core";
 import Slider from "../Slider";
-import { getData } from "../../getDataFunc";
+import { fetchData } from "../../fetchData";
 
 const PhotosContainer = styled.div`
   display: flex;
@@ -14,17 +14,30 @@ export default class Photos extends React.Component {
   state = {
     photos: [],
     isLoading: false,
-    isOpen: false,
+    isOpenModal: false,
     startIndex: 0,
   };
 
-  setIsOpen = (event) => {
-    const { target } = event;
+  onClickOpeningGallery = (event) => {
     const { photos } = this.state;
-    const idexOfElement = photos.findIndex((photo) => photo.id === +target.id);
-    this.setState((state) => {
-      return { isOpen: !state.isOpen, startIndex: idexOfElement };
-    });
+    const startIndexGallery = photos.findIndex(
+      (photo) => photo.id === Number(event.target.id)
+    );
+    this.updateIsOpen(true);
+    this.updateStartIndex(startIndexGallery);
+  };
+
+  updateStartIndex = (value) => {
+    this.setState({ startIndex: value });
+  };
+
+  updateIsOpen = (value) => {
+    this.setState({ isOpenModal: value });
+  };
+
+  onCloseGallery = () => {
+    this.updateIsOpen(false);
+    this.updateStartIndex(0);
   };
 
   componentDidMount() {
@@ -32,22 +45,22 @@ export default class Photos extends React.Component {
 
     this.setState({ isLoading: true });
 
-    getData("https://jsonplaceholder.typicode.com/photos")
+    fetchData("https://jsonplaceholder.typicode.com/photos")
       .then((res) => res.filter((item) => item.albumId === +albumId))
       .then((res) => this.setState({ photos: res, isLoading: false }))
       .catch((error) => alert(error));
   }
 
   render() {
-    const { photos, isLoading, isOpen, startIndex } = this.state;
+    const { photos, isLoading, isOpenModal, startIndex } = this.state;
     const { userId } = this.props.match.params;
 
     return (
       <div>
         <h1>Photos</h1>
         <Modal
-          open={isOpen}
-          onClose={this.setIsOpen}
+          open={isOpenModal}
+          onClose={this.onCloseGallery}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
         >
@@ -63,7 +76,11 @@ export default class Photos extends React.Component {
         ) : (
           <PhotosContainer>
             {photos.map((photo) => (
-              <Photo key={photo.id} photo={photo} setIsOpen={this.setIsOpen} />
+              <Photo
+                key={photo.id}
+                photo={photo}
+                onClickOpeningGallery={this.onClickOpeningGallery}
+              />
             ))}
           </PhotosContainer>
         )}

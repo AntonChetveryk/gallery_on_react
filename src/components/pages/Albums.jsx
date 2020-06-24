@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { getData } from "../../getDataFunc";
+import { fetchData } from "../../fetchData";
 
 import Album from "./Album";
 
@@ -21,8 +21,7 @@ export default class Albums extends React.Component {
 
     this.setState({ isLoading: true });
 
-    getData("https://jsonplaceholder.typicode.com/albums")
-      .then((res) => res.filter((item) => item.userId === +userId))
+    fetchData(`https://jsonplaceholder.typicode.com/users/${userId}/albums`)
       .then((res) => this.setState({ albums: res, isLoading: false }))
       .catch((error) => alert(error));
   }

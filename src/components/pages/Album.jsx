@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AlbumPhoto from "../../img/Album.jpg";
-
+import { fetchData } from "../../fetchData";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -17,14 +17,11 @@ export default class Album extends React.Component {
 
   componentDidMount() {
     const { album } = this.props;
-    fetch("https://jsonplaceholder.typicode.com/photos")
-      .then((res) => res.json())
-      .then((res) => {
-        return res.filter((photo) => photo.albumId === album.id);
-      })
+    fetchData(`https://jsonplaceholder.typicode.com/albums/${album.id}/photos`)
       .then((res) => {
         this.setState({ numberOfPhotos: res.length });
-      });
+      })
+      .catch((error) => alert(error));
   }
 
   render() {
