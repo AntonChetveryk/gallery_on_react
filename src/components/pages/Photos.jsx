@@ -45,9 +45,10 @@ export default class Photos extends React.Component {
 
     this.setState({ isLoading: true });
 
-    fetchData("https://jsonplaceholder.typicode.com/photos")
-      .then((res) => res.filter((item) => item.albumId === +albumId))
-      .then((res) => this.setState({ photos: res, isLoading: false }))
+    fetchData(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos`)
+      .then((res) => {
+        this.setState({ photos: res, isLoading: false });
+      })
       .catch((error) => alert(error));
   }
 
